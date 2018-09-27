@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <style>
+
+        body {
+            margin: 0;
+        }
+
+        #embed-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 95%;
+            height: 95%;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-style: none;
+        }
+    </style>
+    <div id="embed-container">@RenderBody()</div>
+</body>
+</html>
