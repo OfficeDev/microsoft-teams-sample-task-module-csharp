@@ -18,7 +18,7 @@ The tab shows how to invoke the task module using the Teams SDK. Source code for
 
 The following task modules are supported:
 
-* YouTube, which is comprised of a [generic template for embedded `<iframe>` experiences](Microsoft.Teams.Samples.TaskModule.Web/Views/Shared/_EmbedPage.cshtml) (also used for the PowerApp task module below) plus a [one-line stub containing the YouTube embed URL](Microsoft.Teams.Samples.TaskModule.Web/Views/Home/Youtube.cshtml)
+* YouTube, which is comprised of a [generic template for embedded `<iframe>` experiences](Microsoft.Teams.Samples.TaskModule.Web/Views/Shared/_EmbedPage.cshtml) (also used for the PowerApp task module below) plus a [one-line stub containing the YouTube embed URL](Microsoft.Teams.Samples.TaskModule.Web/Views/Home/YouTube.cshtml)
 * [PowerApp](Microsoft.Teams.Samples.TaskModule.Web/Views/Home/PowerApp.cshtml) &mdash; unfortunately it doesn't work out of the box; click the button or see the [source code](Microsoft.Teams.Samples.TaskModule.Web/Views/Home/PowerApp.cshtml) for details on how you can customize it for your tenant
 * There are two custom form examples:
   * Showing the results of a custom form returned to the tab
