@@ -3,10 +3,12 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
+    @Scripts.Render("https://unpkg.com/@microsoft/teams-js@1.3.4/dist/MicrosoftTeams.min.js")
+
+    @RenderSection("scripts", required: false)
 </head>
 <body>
     <style>
-
         body {
             margin: 0;
         }
@@ -24,6 +26,15 @@
             border-style: none;
         }
     </style>
+    <script>
+    microsoftTeams.initialize();
+
+        //- Handle the Esc key
+        document.onkeyup = function (event) {
+            if ((event.key === 27) || (event.key === "Escape")) {
+                microsoftTeams.tasks.submitTask(null); //- this will return an err object to the completionHandler()
+            }
+        }</script>
     <div id="embed-container">@RenderBody()</div>
 </body>
 </html>

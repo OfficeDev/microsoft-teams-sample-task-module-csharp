@@ -19,10 +19,20 @@
     "full": "This sample app provides a very simple Task Module functionality."
   },
   "icons": {
-    "outline": "contoso20x20.png",
-    "color": "contoso96x96.png"
+    "outline": "outline_icon.png",
+    "color": "color_icon.png"
   },
   "accentColor": "#60A18E",
+  "configurableTabs": [
+    {
+      "configurationUrl": "https://taskmodulecsharpdemo.azurewebsites.net/configure",
+      "canUpdateConfiguration": true,
+      "scopes": [
+        "team",
+        "groupchat"
+      ]
+    }
+  ],
   "staticTabs": [
     {
       "entityId": "com.contoso.taskmodule.task",
@@ -39,10 +49,12 @@
       "needsChannelSelector": false,
       "isNotificationOnly": false,
       "scopes": [
-        "personal"
+        "personal",
+        "team",
+        "groupchat"
       ]
     }
   ],
   "permissions": [],
-  "validDomains": [ "*.ngrok.io", "taskmodulecsharpdemo.azurewebsites.net" ]
+  "validDomains": [ "taskmodulecsharpdemo.azurewebsites.net" ]
 }
