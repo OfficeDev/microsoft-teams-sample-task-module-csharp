@@ -11,12 +11,12 @@
     "termsOfUseUrl": "https://www.microsoft.com/termsofuse"
   },
   "name": {
-    "short": "Task Module CSharp",
-    "full": "Task Module CSharp Sample"
+    "short": "Task Module Sample (C#)",
+    "full": "Task Module Sample (C#/.NET version)"
   },
   "description": {
-    "short": "Task Module CSharp for Microsoft Teams",
-    "full": "This sample app provides a very simple Task Module functionality."
+    "short": "Task Module Demo - C#/.NET Edition",
+    "full": "This is a sample app for the Task Module feature written in C#."
   },
   "icons": {
     "outline": "outline_icon.png",
@@ -28,8 +28,7 @@
       "configurationUrl": "https://taskmodulecsharpdemo.azurewebsites.net/configure",
       "canUpdateConfiguration": true,
       "scopes": [
-        "team",
-        "groupchat"
+        "team"
       ]
     }
   ],
@@ -39,7 +38,7 @@
       "name": "Tasks!",
       "contentUrl": "https://taskmodulecsharpdemo.azurewebsites.net/tasks",
       "scopes": [
-        "personal"
+        "personal", "team"
       ]
     }
   ],
@@ -49,9 +48,7 @@
       "needsChannelSelector": false,
       "isNotificationOnly": false,
       "scopes": [
-        "personal",
-        "team",
-        "groupchat"
+        "personal", "team"
       ]
     }
   ],
