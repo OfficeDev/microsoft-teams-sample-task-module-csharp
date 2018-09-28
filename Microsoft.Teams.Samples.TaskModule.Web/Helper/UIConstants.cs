@@ -32,37 +32,51 @@
 // LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-using AdaptiveCards;
-using Microsoft.Bot.Connector;
+
 using System;
-using System.IO;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Web;
 
 namespace Microsoft.Teams.Samples.TaskModule.Web.Helper
 {
-    /// <summary>
-    ///  Helper class which posts to the saved channel every 20 seconds.
-    /// </summary>
-    public static class AdaptiveCardHelper
+
+    public static class TaskModuleUIConstants
     {
+        public static UIConstants YouTube { get; set; } =
+            new UIConstants(1000, 700, "Microsoft Ignite 2018 Vision Keynote", TaskModuleIds.YouTube, "YouTube");
+        public static UIConstants PowerApp { get; set; } =
+            new UIConstants(720, 520, "PowerApp: Asset Checkout", TaskModuleIds.PowerApp, "Power App");
+        public static UIConstants CustomForm { get; set; } =
+            new UIConstants(510, 450, "Custom Form", TaskModuleIds.CustomForm, "Custom Form");
+        public static UIConstants AdaptiveCard { get; set; } =
+            new UIConstants(700, 320, "Adaptive Card: Inputs", TaskModuleIds.AdaptiveCard, "Adaptive Card");
+    }
 
-        public static Attachment GetAdaptiveCard()
+    public class UIConstants
+    {
+        public UIConstants(int width, int height, string title, string id, string buttonTitle)
         {
-            // Parse the JSON 
-            AdaptiveCardParseResult result = AdaptiveCard.FromJson(GetAdaptiveCardJson());
-
-            return new Attachment()
-            {
-                ContentType = AdaptiveCard.ContentType,
-                Content = result.Card
-
-            };
+            Width = width;
+            Height = height;
+            Title = title;
+            Id = id;
+            ButtonTitle = buttonTitle;
         }
 
-        public static String GetAdaptiveCardJson()
-        {
-            var path = System.Web.Hosting.HostingEnvironment.MapPath(@"~\Resources\Cards\AdaptiveCard.json");
-            return File.ReadAllText(path);
-        }
+        public int Height { get; set; }
+        public int Width { get; set; }
+        public string Title { get; set; }
+        public string ButtonTitle { get; set; }
+        public string Id { get; set; }
+    }
 
+    public class TaskModuleIds
+    {
+        public const string YouTube = "youtube";
+        public const string PowerApp = "powerapp";
+        public const string CustomForm = "customform";
+        public const string AdaptiveCard = "adaptivecard";
     }
 }

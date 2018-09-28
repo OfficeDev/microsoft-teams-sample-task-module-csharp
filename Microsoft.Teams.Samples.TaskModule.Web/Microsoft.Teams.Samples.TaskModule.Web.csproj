@@ -224,9 +224,11 @@
     </Compile>
     <Compile Include="Helper\AdaptiveCardHelper.cs" />
     <Compile Include="Helper\ApplicationSettings.cs" />
+    <Compile Include="Helper\DeeplinkHelper.cs" />
+    <Compile Include="Helper\UIConstants.cs" />
+    <Compile Include="Models\CardActionValue.cs" />
     <Compile Include="Models\TaskModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\TasksViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\custom.css" />
@@ -234,8 +236,8 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Manifest\contoso20x20.png" />
-    <Content Include="Manifest\contoso96x96.png" />
+    <Content Include="Manifest\color_icon.png" />
+    <Content Include="Manifest\outline_icon.png" />
     <Content Include="Scripts\teamsapp.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -254,6 +256,7 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="Manifest\manifest.json" />
+    <Content Include="Manifest\TaskModuleCSharp.zip" />
     <None Include="packages.config" />
     <Content Include="Views\Home\Tasks.cshtml" />
     <Content Include="Views\Home\CustomForm.cshtml" />

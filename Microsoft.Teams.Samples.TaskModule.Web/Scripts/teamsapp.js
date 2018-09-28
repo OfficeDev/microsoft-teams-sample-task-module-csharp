@@ -103,18 +103,10 @@
                     "actions": [
                         {
                             "type": "Action.Submit",
-                            "title": "OK",
-                            "data": {
-                                "actester": true
-                            }
+                            "title": "OK"
                         }
                     ]
                 }
-            },
-            {
-                "type": "Action.OpenUrl",
-                "title": "View",
-                "url": "http://adaptivecards.io"
             }
         ],
         "version": "1.0"

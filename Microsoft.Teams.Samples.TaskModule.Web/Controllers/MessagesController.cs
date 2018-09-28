@@ -1,4 +1,38 @@
-﻿using Microsoft.Bot.Builder.Dialogs;
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license.
+//
+// Microsoft Bot Framework: http://botframework.com
+// Microsoft Teams: https://dev.office.com/microsoft-teams
+//
+// Bot Builder SDK GitHub:
+// https://github.com/Microsoft/BotBuilder
+//
+// Bot Builder SDK Extensions for Teams
+// https://github.com/OfficeDev/BotBuilder-MicrosoftTeams
+//
+// Copyright (c) Microsoft Corporation
+// All rights reserved.
+//
+// MIT License:
+// Permission is hereby granted, free of charge, to any person obtaining
+// a copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to
+// permit persons to whom the Software is furnished to do so, subject to
+// the following conditions:
+//
+// The above copyright notice and this permission notice shall be
+// included in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED ""AS IS"", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+// LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+// OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
 using Microsoft.Bot.Sample.SimpleEchoBot;
 using Microsoft.Teams.Samples.TaskModule.Web.Helper;
@@ -36,20 +70,9 @@ namespace Microsoft.Teams.Samples.TaskModule.Web.Controllers
             var activityValue = activity.Value.ToString();
             if (activity.Name == "task/fetch")
             {
-                var action = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.FetchActionDetails>(activityValue);
-                Models.TaskInfo taskInfo = new Models.TaskInfo()
-                {
-                    Title = "Task Module",
-                    Height = "medium",
-                    Width = "medium"
-                };
+                var action = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.BotFrameworkCardValue<string>>(activityValue);
 
-                // Check the card vs html
-                if (action.AdditionalInfo.Contains("html"))
-                    taskInfo.Url = ApplicationSettings.BaseUrl + "/customform";
-                else
-                    taskInfo.Card = AdaptiveCardHelper.GetAdaptiveCard();// Attachment AdaptiveCardHelper.GetAdaptiveCard();
-
+                Models.TaskInfo taskInfo = GetTaskInfo(action.Data);
                 Models.TaskEnvelope taskEnvelope = new Models.TaskEnvelope
                 {
                     Task = new Models.Task()
@@ -63,15 +86,45 @@ namespace Microsoft.Teams.Samples.TaskModule.Web.Controllers
             }
             else if (activity.Name == "task/submit")
             {
-                Console.WriteLine(activity.Value);
-
                 ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
                 Activity reply = activity.CreateReply("Received = " + activity.Value.ToString());
                 connector.Conversations.ReplyToActivity(reply);
             }
             return new HttpResponseMessage(HttpStatusCode.Accepted);
+        }
 
+        private static Models.TaskInfo GetTaskInfo(string actionInfo)
+        {
+            Models.TaskInfo taskInfo = new Models.TaskInfo();
+            switch (actionInfo)
+            {
+                case TaskModuleIds.YouTube:
+                    taskInfo.Url = taskInfo.FallbackUrl = ApplicationSettings.BaseUrl + "/" + TaskModuleIds.YouTube;
+                    SetTaskInfo(taskInfo, TaskModuleUIConstants.YouTube);
+                    break;
+                case TaskModuleIds.PowerApp:
+                    taskInfo.Url = taskInfo.FallbackUrl = ApplicationSettings.BaseUrl + "/" + TaskModuleIds.PowerApp;
+                    SetTaskInfo(taskInfo, TaskModuleUIConstants.PowerApp);
+                    break;
+                case TaskModuleIds.CustomForm:
+                    taskInfo.Url = taskInfo.FallbackUrl = ApplicationSettings.BaseUrl + "/" + TaskModuleIds.CustomForm;
+                    SetTaskInfo(taskInfo, TaskModuleUIConstants.CustomForm);
+                    break;
+                case TaskModuleIds.AdaptiveCard:
+                    taskInfo.Card = AdaptiveCardHelper.GetAdaptiveCard();
+                    SetTaskInfo(taskInfo, TaskModuleUIConstants.AdaptiveCard);
+                    break;
+                default:
+                    break;
+            }
+            return taskInfo;
+        }
 
+        private static void SetTaskInfo(Models.TaskInfo taskInfo, UIConstants uIConstants)
+        {
+            taskInfo.Height = uIConstants.Height;
+            taskInfo.Width = uIConstants.Width;
+            taskInfo.Title = uIConstants.Title.ToString();
         }
 
         private Activity HandleSystemMessage(Activity message)
@@ -99,9 +152,6 @@ namespace Microsoft.Teams.Samples.TaskModule.Web.Controllers
             else if (message.Type == ActivityTypes.Typing)
             {
                 // Handle knowing tha the user is typing
-            }
-            else if (message.Type == ActivityTypes.Ping)
-            {
             }
 
             return null;
