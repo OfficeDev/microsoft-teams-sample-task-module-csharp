@@ -81,6 +81,7 @@ namespace Microsoft.Teams.Samples.TaskModule.Web.Controllers
             return new HttpResponseMessage(HttpStatusCode.Accepted);
         }
 
+        // Helper function for building the TaskInfo object based on the incoming request
         private static Models.TaskInfo GetTaskInfo(string actionInfo)
         {
             Models.TaskInfo taskInfo = new Models.TaskInfo();
