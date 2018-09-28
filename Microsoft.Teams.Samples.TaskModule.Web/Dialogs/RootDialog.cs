@@ -56,13 +56,10 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
         public async System.Threading.Tasks.Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> argument)
         {
             var message = (Activity)await argument;
-            var messageText = message.GetTextWithoutMentions();
             var reply = message.CreateReply();
 
-            // Get deeplink Uri
-            var deeplinkUlr = new Uri(ApplicationSettings.DeepLink);
-            ThumbnailCard card = GetTaskModuleOptions(deeplinkUlr);
-            Attachment adaptiveCard = GetTaskModuleOptionsAdaptiveCard(deeplinkUlr);
+            ThumbnailCard card = GetTaskModuleOptions();
+            Attachment adaptiveCard = GetTaskModuleOptionsAdaptiveCard();
 
             reply.Attachments.Add(card.ToAttachment());
             reply.Attachments.Add(adaptiveCard);
@@ -71,7 +68,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
             context.Wait(MessageReceivedAsync);
         }
 
-        private static Attachment GetTaskModuleOptionsAdaptiveCard(Uri deeplinkUlr)
+        private static Attachment GetTaskModuleOptionsAdaptiveCard()
         {
             var card = new AdaptiveCard()
             {
@@ -80,43 +77,63 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                         new AdaptiveTextBlock(){Text="Task Module Invocation from Adaptive Card",Weight=AdaptiveTextWeight.Bolder,Size=AdaptiveTextSize.Large}
                     },
                 Actions = new List<AdaptiveAction>()
-               {
-                    new AdaptiveSubmitAction()
+                {
+                     new AdaptiveSubmitAction()
                     {
-                        Title="Custom Form",
-                        Data = new AdaptiveCardFetchAction() { AdditionalInfo = "html"}
+                        Title=TaskModuleUIConstants.YouTube.ButtonTitle,
+                        Data = new AdaptiveCardValue<string>() { Data = TaskModuleUIConstants.YouTube.Id}
+                    },
+                      new AdaptiveSubmitAction()
+                    {
+                        Title= TaskModuleUIConstants.PowerApp.ButtonTitle,
+                        Data = new AdaptiveCardValue<string>() { Data = TaskModuleUIConstants.PowerApp.Id}
                     },
                     new AdaptiveSubmitAction()
                     {
-                        Title="Adaptive Card",
-                        Data = new AdaptiveCardFetchAction() { AdditionalInfo = "adaptivecard"  }
+                        Title= TaskModuleUIConstants.CustomForm.ButtonTitle,
+                        Data = new AdaptiveCardValue<string>() { Data = TaskModuleUIConstants.CustomForm.Id}
+                    },
+                    new AdaptiveSubmitAction()
+                    {
+                         Title= TaskModuleUIConstants.AdaptiveCard.ButtonTitle,
+                        Data = new AdaptiveCardValue<string>() { Data = TaskModuleUIConstants.AdaptiveCard.Id }
                     },
                     new AdaptiveOpenUrlAction()
                     {
                         Title="Task Module - Deeplink",
-                        Url=deeplinkUlr
+                        Url=new Uri(DeeplinkHelper.DeepLink)
                     }
                },
             };
             return new Attachment() { ContentType = AdaptiveCard.ContentType, Content = card };
         }
 
-        private static ThumbnailCard GetTaskModuleOptions(Uri deeplinkUlr)
+        private static ThumbnailCard GetTaskModuleOptions()
         {
             ThumbnailCard card = new ThumbnailCard();
             card.Title = "Task Module Invocation from Thumbnail Card";
             card.Buttons = new List<CardAction>();
-            card.Buttons.Add(new CardAction("invoke", "Custom Form", null,
-                new FetchAction()
+            card.Buttons.Add(new CardAction("invoke", TaskModuleUIConstants.YouTube.ButtonTitle, null,
+                new BotFrameworkCardValue<string>()
                 {
-                    AdditionalInfo = "html"
+                    Data = TaskModuleUIConstants.YouTube.Id
                 }));
-            card.Buttons.Add(new CardAction("invoke", "Adaptive Card", null,
-                new FetchAction()
+            card.Buttons.Add(new CardAction("invoke", TaskModuleUIConstants.PowerApp.ButtonTitle, null,
+                new BotFrameworkCardValue<string>()
                 {
-                    AdditionalInfo = "adaptivecard"
+                    Data = TaskModuleUIConstants.PowerApp.Id
                 }));
-            card.Buttons.Add(new CardAction("openUrl", "Task Module - Deeplink", null, deeplinkUlr));
+            card.Buttons.Add(new CardAction("invoke", TaskModuleUIConstants.CustomForm.ButtonTitle, null,
+                new BotFrameworkCardValue<string>()
+                {
+                    Data = TaskModuleUIConstants.CustomForm.Id
+                }));
+            card.Buttons.Add(new CardAction("invoke", TaskModuleUIConstants.AdaptiveCard.ButtonTitle, null,
+                new BotFrameworkCardValue<string>()
+                {
+                    Data = TaskModuleUIConstants.AdaptiveCard.Id
+                }));
+            card.Buttons.Add(new CardAction("openUrl", "Task Module - Deeplink", null, DeeplinkHelper.DeepLink));
             return card;
         }
     }

@@ -70,22 +70,9 @@ namespace Microsoft.Teams.Samples.TaskModule.Web.Controllers
             var activityValue = activity.Value.ToString();
             if (activity.Name == "task/fetch")
             {
-                var action = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.FetchAction>(activityValue);
-                Models.TaskInfo taskInfo = new Models.TaskInfo()
-                {
-                    Title = "Task Module Demo",
-                    Height = "medium",
-                    Width = "medium"
-                };
+                var action = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.BotFrameworkCardValue<string>>(activityValue);
 
-                // Check the card vs html
-                if (action.AdditionalInfo.Contains("html"))
-                {
-                    taskInfo.Url = ApplicationSettings.BaseUrl + "/customform";
-                }
-                else
-                    taskInfo.Card = AdaptiveCardHelper.GetAdaptiveCard();
-
+                Models.TaskInfo taskInfo = GetTaskInfo(action.Data);
                 Models.TaskEnvelope taskEnvelope = new Models.TaskEnvelope
                 {
                     Task = new Models.Task()
@@ -99,13 +86,45 @@ namespace Microsoft.Teams.Samples.TaskModule.Web.Controllers
             }
             else if (activity.Name == "task/submit")
             {
-                Console.WriteLine(activity.Value);
-
                 ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
                 Activity reply = activity.CreateReply("Received = " + activity.Value.ToString());
                 connector.Conversations.ReplyToActivity(reply);
             }
             return new HttpResponseMessage(HttpStatusCode.Accepted);
+        }
+
+        private static Models.TaskInfo GetTaskInfo(string actionInfo)
+        {
+            Models.TaskInfo taskInfo = new Models.TaskInfo();
+            switch (actionInfo)
+            {
+                case TaskModuleIds.YouTube:
+                    taskInfo.Url = taskInfo.FallbackUrl = ApplicationSettings.BaseUrl + "/" + TaskModuleIds.YouTube;
+                    SetTaskInfo(taskInfo, TaskModuleUIConstants.YouTube);
+                    break;
+                case TaskModuleIds.PowerApp:
+                    taskInfo.Url = taskInfo.FallbackUrl = ApplicationSettings.BaseUrl + "/" + TaskModuleIds.PowerApp;
+                    SetTaskInfo(taskInfo, TaskModuleUIConstants.PowerApp);
+                    break;
+                case TaskModuleIds.CustomForm:
+                    taskInfo.Url = taskInfo.FallbackUrl = ApplicationSettings.BaseUrl + "/" + TaskModuleIds.CustomForm;
+                    SetTaskInfo(taskInfo, TaskModuleUIConstants.CustomForm);
+                    break;
+                case TaskModuleIds.AdaptiveCard:
+                    taskInfo.Card = AdaptiveCardHelper.GetAdaptiveCard();
+                    SetTaskInfo(taskInfo, TaskModuleUIConstants.AdaptiveCard);
+                    break;
+                default:
+                    break;
+            }
+            return taskInfo;
+        }
+
+        private static void SetTaskInfo(Models.TaskInfo taskInfo, UIConstants uIConstants)
+        {
+            taskInfo.Height = uIConstants.Height;
+            taskInfo.Width = uIConstants.Width;
+            taskInfo.Title = uIConstants.Title.ToString();
         }
 
         private Activity HandleSystemMessage(Activity message)

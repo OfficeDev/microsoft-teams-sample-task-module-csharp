@@ -224,7 +224,9 @@
     </Compile>
     <Compile Include="Helper\AdaptiveCardHelper.cs" />
     <Compile Include="Helper\ApplicationSettings.cs" />
-    <Compile Include="Models\FetchAction.cs" />
+    <Compile Include="Helper\DeeplinkHelper.cs" />
+    <Compile Include="Helper\UIConstants.cs" />
+    <Compile Include="Models\CardActionValue.cs" />
     <Compile Include="Models\TaskModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

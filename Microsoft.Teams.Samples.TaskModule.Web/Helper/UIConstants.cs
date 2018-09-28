@@ -33,26 +33,50 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using AdaptiveCards;
-using Microsoft.Teams.Samples.TaskModule.Web.Models;
+using System;
 using System.Collections.Generic;
-using System.Configuration;
+using System.Drawing;
+using System.Linq;
 using System.Web;
-using System.Web.Script.Serialization;
 
 namespace Microsoft.Teams.Samples.TaskModule.Web.Helper
 {
-    public static class ApplicationSettings
+
+    public static class TaskModuleUIConstants
     {
-        public static string BaseUrl { get; set; }
+        public static UIConstants YouTube { get; set; } =
+            new UIConstants(1000, 700, "Microsoft Ignite 2018 Vision Keynote", TaskModuleIds.YouTube, "YouTube");
+        public static UIConstants PowerApp { get; set; } =
+            new UIConstants(720, 520, "PowerApp: Asset Checkout", TaskModuleIds.PowerApp, "Power App");
+        public static UIConstants CustomForm { get; set; } =
+            new UIConstants(510, 450, "Custom Form", TaskModuleIds.CustomForm, "Custom Form");
+        public static UIConstants AdaptiveCard { get; set; } =
+            new UIConstants(700, 320, "Adaptive Card: Inputs", TaskModuleIds.AdaptiveCard, "Adaptive Card");
+    }
 
-        public static string MicrosoftAppId { get; set; }
-
-        static ApplicationSettings()
+    public class UIConstants
+    {
+        public UIConstants(int width, int height, string title, string id, string buttonTitle)
         {
-            BaseUrl = ConfigurationManager.AppSettings["BaseUrl"];
-            MicrosoftAppId = ConfigurationManager.AppSettings["MicrosoftAppId"];
-
+            Width = width;
+            Height = height;
+            Title = title;
+            Id = id;
+            ButtonTitle = buttonTitle;
         }
+
+        public int Height { get; set; }
+        public int Width { get; set; }
+        public string Title { get; set; }
+        public string ButtonTitle { get; set; }
+        public string Id { get; set; }
+    }
+
+    public class TaskModuleIds
+    {
+        public const string YouTube = "youtube";
+        public const string PowerApp = "powerapp";
+        public const string CustomForm = "customform";
+        public const string AdaptiveCard = "adaptivecard";
     }
 }

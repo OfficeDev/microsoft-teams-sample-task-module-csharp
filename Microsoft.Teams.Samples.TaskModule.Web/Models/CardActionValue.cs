@@ -37,24 +37,21 @@ using Newtonsoft.Json;
 
 namespace Microsoft.Teams.Samples.TaskModule.Web.Models
 {
-    public class FetchActionType
+    public class BotFrameworkCardValue<T> 
     {
         [JsonProperty("type")]
-        public string Type { get; set; } = "task/fetch";
+        public object Type { get; set; } = "task/fetch";
+
+        [JsonProperty("data")]
+        public T Data { get; set; }
     }
 
-    public class FetchAction : FetchActionType
-    {
-        [JsonProperty("additionalInfo")]
-        public string AdditionalInfo { get; set; }
-    }
-
-    public class AdaptiveCardFetchAction
+    public class AdaptiveCardValue<T>
     {
         [JsonProperty("msteams")]
-        public FetchActionType TaskAction { get; set; } = new FetchActionType();
-
-        [JsonProperty("additionalInfo")]
-        public string AdditionalInfo { get; set; }
+        public object Type { get; set; } = JsonConvert.DeserializeObject("{\"type\": \"task/fetch\" }");
+        
+        [JsonProperty("data")]
+        public T Data { get; set; }
     }
 }

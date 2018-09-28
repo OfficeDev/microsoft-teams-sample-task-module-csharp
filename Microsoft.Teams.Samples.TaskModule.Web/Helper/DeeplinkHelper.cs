@@ -33,68 +33,33 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using Microsoft.Bot.Connector;
-using Newtonsoft.Json;
-using System.Runtime.Serialization;
+using System.Web;
 
-namespace Microsoft.Teams.Samples.TaskModule.Web.Models
+namespace Microsoft.Teams.Samples.TaskModule.Web.Helper
 {
-    public class TaskInfo
+    public static class DeeplinkHelper
     {
-        [JsonProperty("url")]
-        public string Url { get; set; }
+        public static string DeepLink { get; set; }
+        public static string DeepLinkToAdaptiveCard { get; set; }
 
-        [JsonProperty("card")]
-        public Attachment Card { get; set; }
-
-        [JsonProperty("title")]
-        public string Title { get; set; }
-
-        [JsonProperty("height")]
-        public object Height { get; set; }
-
-        [JsonProperty("width")]
-        public object Width { get; set; }
-
-        [JsonProperty("fallbackUrl")]
-        public string FallbackUrl { get; set; }
-
-        [JsonProperty("completionBotId")]
-        public string CompletionBotId { get; set; }
-
-        public string ToJson()
+        static DeeplinkHelper()
         {
-            return JsonConvert.SerializeObject(this);
+            DeepLink = string.Format("https://teams.microsoft.com/l/task/{0}?url={1}&height={2}&width={3}&title={4}&completionBotId={5}",
+              ApplicationSettings.MicrosoftAppId,
+              HttpUtility.UrlEncode(ApplicationSettings.BaseUrl + "/customForm"),
+              TaskModuleUIConstants.CustomForm.Height,
+              TaskModuleUIConstants.CustomForm.Width,
+              HttpUtility.UrlEncode(TaskModuleUIConstants.CustomForm.Title),
+              ApplicationSettings.MicrosoftAppId);
+
+            //TODO: Check error - Can not render unsupported content type.
+            //DeepLinkToAdaptiveCard = string.Format("https://teams.microsoft.com/l/task/{0}?card={1}&height={2}&width={3}&title={4}&completionBotId={5}",
+            //    ApplicationSettings.MicrosoftAppId,
+            //   HttpUtility.UrlEncode(AdaptiveCardHelper.GetAdaptiveCardJson()),
+            //   TaskModuleUIConstants.CustomForm.Height,
+            //   TaskModuleUIConstants.CustomForm.Width,
+            //   HttpUtility.UrlEncode(TaskModuleUIConstants.AdaptiveCard.Title),
+            //   ApplicationSettings.MicrosoftAppId);
         }
-    }
-
-    public class TaskEnvelope
-    {
-        [JsonProperty("task")]
-        public Task Task { get; set; }
-    }
-
-    public class Task
-    {
-        [JsonProperty("value")]
-        public TaskInfo TaskInfo { get; set; }
-
-        [JsonProperty("type")]
-        public TaskType Type { get; set; }
-    }
-
-    public enum TaskType
-    {
-        /// <summary>
-        /// Teams will display the value of value in a popup message box.
-        /// </summary>
-        [EnumMember(Value = "message")]
-        Message,
-
-        /// <summary>
-        /// Allows you to "chain" sequences of Adaptive cards together in a wizard/multi-step experience.
-        /// </summary>
-        [EnumMember(Value = "continue")]
-        Continue
     }
 }

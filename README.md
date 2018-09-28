@@ -32,8 +32,8 @@ The sample app also contains a bot with cards allowing you to invoke these task 
 ## Implementation notes
 
   * Metadata used to generate [TaskInfo objects](https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/task-modules/task-modules-overview#the-taskinfo-object) is in [TaskModel.cs](Microsoft.Teams.Samples.TaskModule.Web/Models/TaskModel.cs).
-  * Model classes for handling [Bot Framework card actions vs. Adaptive card Action.Submit actions](https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/task-modules/task-modules-bots#bot-framework-card-actions-vs-adaptive-card-actionsubmit-actions) are defined in [FetchAction.cs](Microsoft.Teams.Samples.TaskModule.Web/Models/FetchAction.cs)
-  * Deeplink is generated in [ApplicationSettings.cs](Microsoft.Teams.Samples.TaskModule.Web/Helper/ApplicationSettings.cs)
+  * Model classes for handling [Bot Framework card actions vs. Adaptive card Action.Submit actions](https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/task-modules/task-modules-bots#bot-framework-card-actions-vs-adaptive-card-actionsubmit-actions) are defined in [CardActionValue.cs](Microsoft.Teams.Samples.TaskModule.Web/Models/CardActionValue.cs)
+  * Deeplink is generated in [DeeplinkHelper.cs](Microsoft.Teams.Samples.TaskModule.Web/Helper/DeeplinkHelper.cs)
 
 ## Contributing
 

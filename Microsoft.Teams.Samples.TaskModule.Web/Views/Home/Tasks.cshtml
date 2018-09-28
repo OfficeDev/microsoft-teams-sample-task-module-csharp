@@ -20,7 +20,7 @@
         <button class="button-primary" onclick="submit('adaptivecard bot');">Adaptive Card (results &rarr; bot)</button>
         <p></p>
         <p></p>
-        <a target="_blank" href="@(ApplicationSettings.DeepLink)">Deep link to Custom Form page</a>
+        <a target="_blank" href="@(DeeplinkHelper.DeepLink)">Deep link to Custom Form page</a>
     </div>
 <p></p>
 <script src="~/Scripts/teamsapp.js"></script>
@@ -33,7 +33,6 @@
         };
 
         function submit(type) {
-
             let taskInfo = {
                 title: null,
                 height: null,
@@ -50,21 +49,30 @@
 
             if (type.includes('youtube')) {
                 taskInfo.url = "@(ApplicationSettings.BaseUrl)" + "/youtube";
-                taskInfo.title = "Microsoft Ignite 2018 Vision Keynote";
+                taskInfo.title = "@(TaskModuleUIConstants.YouTube.Title)";
+                taskInfo.height = "@(TaskModuleUIConstants.YouTube.Height)";
+                taskInfo.width = "@(TaskModuleUIConstants.YouTube.Width)";
             }
             else if (type.includes('powerapp')) {
                 taskInfo.url = "@(ApplicationSettings.BaseUrl)" + "/powerapp";
-                taskInfo.title = "PowerApp: Asset Checkout";
+                taskInfo.title = "@(TaskModuleUIConstants.PowerApp.Title)";
+                taskInfo.height = "@(TaskModuleUIConstants.PowerApp.Height)";
+                taskInfo.width = "@(TaskModuleUIConstants.PowerApp.Width)";
             }
             else if (type.includes('customform')) {
                 taskInfo.url = "@(ApplicationSettings.BaseUrl)" + "/customform";
-                taskInfo.title = "Custom Form";
+                taskInfo.title = "@(TaskModuleUIConstants.CustomForm.Title)";
+                taskInfo.height = "@(TaskModuleUIConstants.CustomForm.Height)";
+                taskInfo.width = "@(TaskModuleUIConstants.CustomForm.Width)";
             }
             else {
                 taskInfo.card = {
                     contentType: "application/vnd.microsoft.card.adaptive",
                     content: getAdaptiveCard()
                 };
+                taskInfo.title = "@(TaskModuleUIConstants.AdaptiveCard.Title)";
+                taskInfo.height = "@(TaskModuleUIConstants.AdaptiveCard.Height)";
+                taskInfo.width = "@(TaskModuleUIConstants.AdaptiveCard.Width)";
             }
 
             // Set fallback URL

@@ -37,8 +37,9 @@
       "entityId": "com.contoso.taskmodule.task",
       "name": "Tasks!",
       "contentUrl": "https://taskmodulecsharpdemo.azurewebsites.net/tasks",
+      "websiteUrl": "https://taskmodulecsharpdemo.azurewebsites.net/tasks",
       "scopes": [
-        "personal", "team"
+        "personal"
       ]
     }
   ],
@@ -48,10 +49,28 @@
       "needsChannelSelector": false,
       "isNotificationOnly": false,
       "scopes": [
-        "personal", "team"
+        "personal",
+        "team"
+      ],
+      "commandLists": [
+        {
+          "scopes": [
+            "personal",
+            "team"
+          ],
+          "commands": [
+            {
+              "title": "tasks",
+              "description": "Test the task module with an Adaptive & Thumbnail card"
+            }
+          ]
+        }
       ]
     }
   ],
-  "permissions": [],
+  "permissions": [
+    "identity",
+    "messageTeamMembers"
+  ],
   "validDomains": [ "taskmodulecsharpdemo.azurewebsites.net" ]
 }
