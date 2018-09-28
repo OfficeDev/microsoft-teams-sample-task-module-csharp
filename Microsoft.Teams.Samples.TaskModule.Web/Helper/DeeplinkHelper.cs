@@ -39,15 +39,6 @@ namespace Microsoft.Teams.Samples.TaskModule.Web.Helper
               TaskModuleUIConstants.CustomForm.Width,
               HttpUtility.UrlEncode(TaskModuleUIConstants.CustomForm.Title),
               ApplicationSettings.MicrosoftAppId);
-
-            //TODO: Check error - Can not render unsupported content type.
-            //DeepLinkToAdaptiveCard = string.Format("https://teams.microsoft.com/l/task/{0}?card={1}&height={2}&width={3}&title={4}&completionBotId={5}",
-            //    ApplicationSettings.MicrosoftAppId,
-            //   HttpUtility.UrlEncode(AdaptiveCardHelper.GetAdaptiveCardJson()),
-            //   TaskModuleUIConstants.CustomForm.Height,
-            //   TaskModuleUIConstants.CustomForm.Width,
-            //   HttpUtility.UrlEncode(TaskModuleUIConstants.AdaptiveCard.Title),
-            //   ApplicationSettings.MicrosoftAppId);
         }
     }
 }

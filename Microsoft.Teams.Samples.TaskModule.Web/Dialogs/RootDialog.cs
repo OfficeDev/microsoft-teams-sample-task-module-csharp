@@ -83,7 +83,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     },
                     new AdaptiveSubmitAction()
                     {
-                         Title = TaskModuleUIConstants.AdaptiveCard.ButtonTitle,
+                        Title = TaskModuleUIConstants.AdaptiveCard.ButtonTitle,
                         Data = new AdaptiveCardValue<string>() { Data = TaskModuleUIConstants.AdaptiveCard.Id }
                     },
                     new AdaptiveOpenUrlAction()
