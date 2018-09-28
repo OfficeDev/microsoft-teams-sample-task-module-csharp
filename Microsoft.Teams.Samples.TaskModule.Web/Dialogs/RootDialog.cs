@@ -80,7 +80,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                 {
                      new AdaptiveSubmitAction()
                     {
-                        Title =TaskModuleUIConstants.YouTube.ButtonTitle,
+                        Title = TaskModuleUIConstants.YouTube.ButtonTitle,
                         Data = new AdaptiveCardValue<string>() { Data = TaskModuleUIConstants.YouTube.Id}
                     },
                       new AdaptiveSubmitAction()
@@ -101,7 +101,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     new AdaptiveOpenUrlAction()
                     {
                         Title = "Task Module - Deeplink",
-                        Url=new Uri(DeeplinkHelper.DeepLink)
+                        Url = new Uri(DeeplinkHelper.DeepLink)
                     }
                },
             };
