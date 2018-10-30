@@ -21,12 +21,7 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using AdaptiveCards;
-using Microsoft.Teams.Samples.TaskModule.Web.Models;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Web;
-using System.Web.Script.Serialization;
 
 namespace Microsoft.Teams.Samples.TaskModule.Web.Helper
 {
