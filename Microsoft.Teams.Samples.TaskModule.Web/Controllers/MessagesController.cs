@@ -24,6 +24,7 @@ using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
 using Microsoft.Bot.Sample.SimpleEchoBot;
 using Microsoft.Teams.Samples.TaskModule.Web.Helper;
+using Newtonsoft.Json;
 using System;
 using System.Net;
 using System.Net.Http;
@@ -58,7 +59,16 @@ namespace Microsoft.Teams.Samples.TaskModule.Web.Controllers
             var activityValue = activity.Value.ToString();
             if (activity.Name == "task/fetch")
             {
-                var action = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.BotFrameworkCardValue<string>>(activityValue);
+                Models.BotFrameworkCardValue<string> action;
+                try
+                {
+                    action  = JsonConvert.DeserializeObject<Models.TaskModuleActionData<string>>(activityValue).Data;
+                }
+                catch (Exception)
+                {
+                    // Remove this code once the data structure change (bug 387458) makes it to R3.6.
+                    action = JsonConvert.DeserializeObject<Models.BotFrameworkCardValue<string>>(activityValue);
+                }
 
                 Models.TaskInfo taskInfo = GetTaskInfo(action.Data);
                 Models.TaskEnvelope taskEnvelope = new Models.TaskEnvelope
