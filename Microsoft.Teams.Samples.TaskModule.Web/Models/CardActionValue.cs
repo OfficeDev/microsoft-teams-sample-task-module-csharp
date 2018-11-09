@@ -42,4 +42,10 @@ namespace Microsoft.Teams.Samples.TaskModule.Web.Models
         [JsonProperty("data")]
         public T Data { get; set; }
     }
+
+    public class TaskModuleActionData<T>
+    {
+        [JsonProperty("data")]
+        public BotFrameworkCardValue<T> Data { get; set; }
+    }
 }

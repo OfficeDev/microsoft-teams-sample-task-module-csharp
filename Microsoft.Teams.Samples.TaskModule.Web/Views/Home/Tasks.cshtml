@@ -66,10 +66,7 @@
                 taskInfo.width = "@(TaskModuleUIConstants.CustomForm.Width)";
             }
             else {
-                taskInfo.card = {
-                    contentType: "application/vnd.microsoft.card.adaptive",
-                    content: getAdaptiveCard()
-                };
+                taskInfo.card =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(AdaptiveCardHelper.GetAdaptiveCard()));
                 taskInfo.title = "@(TaskModuleUIConstants.AdaptiveCard.Title)";
                 taskInfo.height = "@(TaskModuleUIConstants.AdaptiveCard.Height)";
                 taskInfo.width = "@(TaskModuleUIConstants.AdaptiveCard.Width)";
