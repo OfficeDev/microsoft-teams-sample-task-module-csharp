@@ -66,7 +66,6 @@ namespace Microsoft.Teams.Samples.TaskModule.Web.Controllers
                 }
                 catch (Exception)
                 {
-                    // Remove this code once the data structure change (bug 387458) makes it to R3.6.
                     action = JsonConvert.DeserializeObject<Models.BotFrameworkCardValue<string>>(activityValue);
                 }
 
