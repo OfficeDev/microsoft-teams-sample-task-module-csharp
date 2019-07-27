@@ -1,14 +1,18 @@
 ---
 page_type: sample
+description: "A task module allows you to create modal popup experiences in your Teams application."
+urlFragment: ms-teams-task-sample
 products:
+- dotnet
 - office-teams
 - office-365
 languages:
 - csharp
 extensions:
   contentType: samples
-  createdDate: 9/26/2018 5:27:57 PM
+  createdDate: "9/26/2018 5:27:57 PM"
 ---
+
 # Microsoft Teams task module - C# sample
 
 A task module allows you to create modal popup experiences in your Teams application. Inside the popup, you can run your own custom HTML/JavaScript code, show an `<iframe>`-based widget such as a YouTube or Microsoft Stream video, or display an [Adaptive card](https://docs.microsoft.com/en-us/adaptive-cards/).
