@@ -12,6 +12,8 @@ extensions:
   contentType: samples
   createdDate: "9/26/2018 5:27:57 PM"
 ---
+> [!NOTE]
+> This repo is moved to new location: https://github.com/OfficeDev/Microsoft-Teams-Samples/tree/main/samples/app-task-module/csharp
 
 # Microsoft Teams task module - C# sample
 
