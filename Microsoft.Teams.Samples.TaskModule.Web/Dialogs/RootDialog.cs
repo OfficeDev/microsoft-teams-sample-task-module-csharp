@@ -24,7 +24,6 @@
 using AdaptiveCards;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
-using Microsoft.Bot.Connector.Teams;
 using Microsoft.Bot.Connector.Teams.Models;
 using Microsoft.Teams.Samples.TaskModule.Web.Helper;
 using Microsoft.Teams.Samples.TaskModule.Web.Models;
@@ -66,12 +65,12 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     },
                 Actions = new List<AdaptiveAction>()
                 {
-                     new AdaptiveSubmitAction()
+                    new AdaptiveSubmitAction()
                     {
                         Title = TaskModuleUIConstants.YouTube.ButtonTitle,
                         Data = new AdaptiveCardValue<string>() { Data = TaskModuleUIConstants.YouTube.Id}
                     },
-                      new AdaptiveSubmitAction()
+                    new AdaptiveSubmitAction()
                     {
                         Title = TaskModuleUIConstants.PowerApp.ButtonTitle,
                         Data = new AdaptiveCardValue<string>() { Data = TaskModuleUIConstants.PowerApp.Id}
